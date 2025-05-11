@@ -1,0 +1,36 @@
+:root {
+  --primary-color: #2968c8;
+  --menu-background-mobile-color: #3A4460;
+  --background: #e7e7e7;
+}
+
+* {
+  color: black;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background: var(--background);
+}
+
+
+
+.boton {
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px;
+  line-height: 40px;
+  padding: 0 20px;
+  text-align: center;
+  width: auto;
+  border-color: transparent;
+  cursor: pointer;
+  color: #fff;
+  background-color: var(--primary-color);
+}
