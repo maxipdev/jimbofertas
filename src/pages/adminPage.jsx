@@ -26,7 +26,8 @@ export function AdminPage () {
         const formData = new FormData();
         formData.append('image', file);
 
-        return fetch(`http://localhost:1234/products/upload-img`, {
+        // return fetch(`http://localhost:1234/products/upload-img`, {
+        return fetch(`https://jimbofertas.vercel.app/api/products/upload-img`, {
             method: 'PUT',
             credentials: "include",
             body: formData
