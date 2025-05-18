@@ -1,10 +1,13 @@
 import { AdminPage } from './pages/adminPage'
 import './App.css'
-import './header.css'
 import {Route, Routes} from "react-router-dom"
 import { Buscador } from './components/buscador'
 import { Header } from './components/header'
 import { Home } from './pages/home'
+import { Login } from './pages/login'
+import { DinamicPage } from './pages/dinamicPage'
+import { PrivateRoute } from './hooks/privateRoute'
+import { RedirectToAdminPage } from './hooks/redirectToAdminPage'
 
 
 function App() {
@@ -15,11 +18,21 @@ function App() {
       <Buscador></Buscador>
 
       <Routes>
-        <Route path="/admin" element={<AdminPage />} />
         <Route path="/" element={<Home />} />
-        <Route path="/a" element={<Home />} />
-        <Route path="/b" element={<Home />} />
-        <Route path="/c" element={<Home />} />
+        <Route path="/:category" element={<DinamicPage />} />
+
+        {/*Private routes*/}
+        <Route element={<PrivateRoute />}>
+            <Route path="/admin" element={<AdminPage />} />
+        </Route>
+
+        {/*TE lleva a la ruta privada una vez inicida la sesion*/}
+        <Route element={<RedirectToAdminPage />}>
+            <Route path="/login" element={<Login />} />
+        </Route>
+
+        {/*No se encontro la ruta*/}
+        <Route path="*" element={<Home />} />
       </Routes>
 
     </>

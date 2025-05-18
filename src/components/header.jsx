@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import closeIcon from '../img/close-icon.svg'
 import openIcon from '../img/hamburger-icon.svg'
 import { useState } from 'react'
+import '../styles/header.css'
 
 export function Header () {
     const [menu, setMenu] = useState(false)
@@ -13,7 +14,7 @@ export function Header () {
     return (
         <header>
         <nav>
-          <a href="" className='logo'>Jimbofertas</a>
+          <Link to="/" className='logo'>Jimbofertas</Link>
           <button className='open-menu' aria-label='abrir menú' onClick={()=> toggleMenu()} >
             <img src={openIcon} alt="abrir menú" />
           </button>
@@ -21,10 +22,11 @@ export function Header () {
             <button className='close-menu' aria-label='cerrar menú' onClick={()=> toggleMenu()} >
               <img src={closeIcon} alt="cerrar menú" />
             </button>
-            <li><Link to="/" className='selected'>Inicio</Link></li>
-            <li><Link to="/a">Higene & Hogar</Link></li>
-            <li><Link to="/b">Indumentaria</Link></li>
-            <li><Link to="/c">Dispositivos Electrónicos</Link></li>
+            <li onClick={()=> toggleMenu()}><Link to="/" className='selected'>Inicio</Link></li>
+            <li onClick={()=> toggleMenu()}><Link to="/higene&hogar">Higene & Hogar</Link></li>
+            <li onClick={()=> toggleMenu()}><Link to="/indumentaria">Indumentaria</Link></li>
+            <li onClick={()=> toggleMenu()}><Link to="/electrodomesticos">Electrodomesticos</Link></li>
+            <li onClick={()=> toggleMenu()}><Link to="/tecnologia">Tecnologia</Link></li>
           </ul>
         </nav>
       </header>
