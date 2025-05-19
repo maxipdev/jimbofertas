@@ -3,14 +3,17 @@ import { Modal } from "../components/modal";
 import { fetchData } from "../fetchData"
 import '../styles/card.css'
 import '../styles/card-admin.css'
+import { useAuth } from "../hooks/useAuth";
 
 export function AdminPage () {
     const [openModal, setOpenModal] = useState(false)
     const [products, setProducts] = useState([])
+    const { token } = useAuth
 
     const GetProducts = () => {
       useEffect(()=> {
-        fetch('http://localhost:1234/products')
+        // fetch('http://localhost:1234/products')
+        fetch('https://jimbofertas-api.vercel.app/products')
         .then(res => {
           if (!res.ok) {
             throw new Error('Error en la solicitud')
@@ -27,7 +30,7 @@ export function AdminPage () {
         formData.append('image', file);
 
         // return fetch(`http://localhost:1234/products/upload-img`, {
-        return fetch(`https://jimbofertas.vercel.app/api/products/upload-img`, {
+        return fetch(`https://jimbofertas-api.vercel.app/products/upload-img`, {
             method: 'PUT',
             credentials: "include",
             body: formData

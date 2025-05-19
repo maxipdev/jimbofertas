@@ -2,6 +2,7 @@ import { UserModel } from "../models/user.js";
 
 export class UserController {
     static async login (req, res) {
+        console.log("gola")
         // Hay que verificar que los datos enviados sean correctos
         try {
             const data  = {
@@ -16,15 +17,7 @@ export class UserController {
             console.log("token ", access_token)
 
 
-            res
-            .cookie('access_token', access_token, {
-                httpOnly: true,
-                maxAge: 1000 * 60 * 60,
-                sameSite: 'lax',
-                secure: false // Arregar este problema de seguridad <-----------
-            })
-            .status(200)
-            .json("sesion iniciada correctamente")
+            res.status(200).json(access_token)
         } catch (error) {
             console.log(error)
             res.status(500).json("error al inciar sesion")
