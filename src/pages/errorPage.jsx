@@ -8,7 +8,7 @@ export function ErrorPage() {
     }, 1800)
     return (
         <div className='contenedor-error-page'>
-            <h1>Lo sentimos no hay ningun produduto para mostrar</h1>
+            <h1>Lo sentimos no hay ningun producto para mostrar</h1>
             <h2>Serás redirigido al inicio</h2>
         </div>
     )
