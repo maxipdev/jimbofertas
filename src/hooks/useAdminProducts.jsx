@@ -144,9 +144,9 @@ export const useAdminPage = () => {
             if (element.id == id) {
                 const originalProduct = {...element}
 
-                if (data.img) {
-                    originalProduct.img = data.img
-                }
+                // if (data.img) {
+                //     originalProduct.img = data.img
+                // }
                 if (data.name) {
                     originalProduct.name = data.name
                 }
