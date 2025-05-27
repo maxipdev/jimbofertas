@@ -1,26 +1,29 @@
 import { useEffect, useState } from "react"
 import { fetchData } from "../fetchData";
 
-export const useGetProducts = (category ="", search) => {
+export const useGetProducts = ({category = null, search = null}) => {
     const [products, setProducts] = useState([])
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(true) // Digo que siempre está el loading activo cuanod apenas empieza la pagina
     const [error, setError] = useState(false)
 
-    let parametro = search
-
-    if (!parametro) {
-        parametro = ""
+    let URL = `products`
+    if (category) {
+        URL = `products/${category}`
     }
+    else if (search) {
+        URL = `products/search?product=${search}`
+    }
+    console.log(URL)
 
     useEffect(()=> {
-        const combinado = `products/${category}${parametro}`
-
-        fetchData({path: combinado})
+        fetchData({path: URL})
         .then(data => setProducts(data))
         .catch(() => setError(true))
         .finally(() => setLoading(false))
 
-    }, [category, parametro])
+    }, [category, search])
+
+    console.log(loading)
 
     return {products, loading, error}
 }

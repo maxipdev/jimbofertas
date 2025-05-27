@@ -1,36 +1,38 @@
+import { useSearchParams } from 'react-router-dom'
+import { Loader } from '../components/loader'
 import { useGetProducts } from '../hooks/products'
 import '../styles/card.css'
 
 export function Home () {
-    const {products, loading} = useGetProducts()
+    const [searchParams]  = useSearchParams()
+    const search = searchParams.get('product')
+    const {products, loading} = useGetProducts({search})
 
+    if (loading) {
+      return <Loader />
+    }
+
+    // Condiconal en caso de que no haya ningun resutado en la base de datos
+    if (!loading && products.length == 0 && search) {
+        return (
+            <section>
+                <h1>No hay resultados que coincidan con tu busqueda</h1>
+            </section>
+        )
+    } 
 
     return (
         <section>
         <h1>Todos los productos</h1>
 
         <div className="card-container">
-          <div className="card">
-            <div className="img-container">
-              <img src="https://i0.wp.com/loquiero.com.ar/wp-content/uploads/2024/05/iPhone_11_green1.jpg?fit=900%2C900&ssl=1" alt="soy una imagen" />
-            </div>
-            <div className='line'></div>
-            <div className="content">
-              <h2>IPhone 11</h2>
-              <h3>$ 750.000</h3>
 
-              <a  href="https://wa.me/5491138276214?text=Hola%20soy%20maxi"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <button className="boton">Comprar</button>
-                </a>
-              
-            </div>
-          </div>
+        {products.map(product => (
+            <div className={`card ${product.enable == false && "disable"}`} key={product.id}>
+                {product.enable == false ?                 <div className="overlay">
+                    <span className='sold-out-text'>AGOTADO</span>
+                </div> : null}
 
-          {products.map(product => (
-            <div className="card" key={product.id}>
                 <div className="img-container">
                     <img src={`https://bswmbazkzzilbxoodxmr.supabase.co/storage/v1/object/public/products/public/${product.img}`} alt={product.name} />
                 </div>
@@ -39,113 +41,15 @@ export function Home () {
                     <h2>{product.name}</h2>
                     <h3>$ {product.price}</h3>
 
-                <a href={`https://wa.me/5491138276214?text=Hola,%20%20me%20gustaria%20comprar%20el%20siguiente%20producto:%20${product.name}`}
+                <a className={product.enable == false && 'link-disable'}
+                    href={`https://wa.me/5491138276214?text=Hola,%20%20me%20gustaria%20comprar%20el%20siguiente%20producto:%20${product.name}`}
                     target="_blank"
                     rel="noopener noreferrer">
-                    <button className="boton">Comprar</button>
+                    <button className={`boton ${product.enable == false && "boton-disable"}`}>Comprar</button>
                 </a>
                 </div>
             </div>
-          ))}
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://dcdn-us.mitiendanube.com/stores/001/157/926/products/whatsapp-image-2022-02-10-at-7-55-52-pm1-889afd55b22cdc89a516445338818101-1024-1024.jpeg" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>Campera de invierno</h2>
-              <h3>$ 999.999</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://i0.wp.com/loquiero.com.ar/wp-content/uploads/2024/05/iPhone_11_green1.jpg?fit=900%2C900&ssl=1" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>IPhone 11</h2>
-              <h3>$ 750.000</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://i0.wp.com/loquiero.com.ar/wp-content/uploads/2024/05/iPhone_11_green1.jpg?fit=900%2C900&ssl=1" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>IPhone 11</h2>
-              <h3>$ 750.000</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://i5.walmartimages.com/seo/Restored-iPhone-11-Unlocked-CDMA-GSM-128GB-Purple-Refurbished_70c68bf9-8932-4a08-a4f9-04dbae2eab10.2b46a044e2bd1c9bde25c3562960246c.jpeg" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>IPhone 11</h2>
-              <h3>$ 750.000</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://http2.mlstatic.com/D_NQ_NP_998696-MLA49321318270_032022-O.webp" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>Plato de cocina 1</h2>
-              <h3>$ 500</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://http2.mlstatic.com/D_NQ_NP_892407-MLA78186046124_082024-O.webp" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>Plato 2</h2>
-              <h3>$ 65.656</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://dcdn-us.mitiendanube.com/stores/001/157/926/products/whatsapp-image-2022-02-10-at-7-55-52-pm1-889afd55b22cdc89a516445338818101-1024-1024.jpeg" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>Campera de invierno</h2>
-              <h3>$ 999.999</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://dcdn-us.mitiendanube.com/stores/001/157/926/products/whatsapp-image-2022-02-10-at-7-55-52-pm1-889afd55b22cdc89a516445338818101-1024-1024.jpeg" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>Campera de invierno</h2>
-              <h3>$ 999.999</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div> 
-
-          <div className="card">
-            <div className="img-container">
-              <img src="https://dcdn-us.mitiendanube.com/stores/001/157/926/products/whatsapp-image-2022-02-10-at-7-55-52-pm1-889afd55b22cdc89a516445338818101-1024-1024.jpeg" alt="soy una imagen" />
-            </div>
-            <div className="content">
-              <h2>Campera </h2>
-              <h3>$ 999.999</h3>
-              <button className="boton">Comprar</button>
-            </div>
-          </div>
+        ))}
 
         </div>
       </section>

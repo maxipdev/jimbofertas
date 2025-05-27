@@ -8,6 +8,7 @@ import { Login } from './pages/login'
 import { DinamicPage } from './pages/dinamicPage'
 import { PrivateRoute } from './hooks/privateRoute'
 import { RedirectToAdminPage } from './hooks/redirectToAdminPage'
+import { Toaster } from 'sonner'
 
 
 function App() {
@@ -17,6 +18,8 @@ function App() {
 
       <Buscador></Buscador>
 
+      <Toaster position="top-right" richColors />
+      
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/:category" element={<DinamicPage />} />

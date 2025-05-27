@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react"
 import { fetchData } from "../fetchData"
+import { toast } from 'sonner'
 
 // Verifica si el usuario tiene la sesion iniciada --> Mediante un hook
 const AuthContext = createContext()
@@ -11,15 +12,15 @@ export const AuthProvider = ({ children }) => {
     const tokenRef = useRef(null)
 
     useEffect(()=> {
-        // fetchData({path: 'login'})
-        // .then(() => setUserState(true))
-        // .catch(() => console.error('Error al inicar sesion'))
-
         const token = getTokenLocalStorage()
-        tokenRef.current = token
-
         if (token) {
-            setUserState(true)
+            tokenRef.current = token
+            fetchData({path: 'login', token})
+            .then(() => setUserState(true))
+            .catch((err) => {
+                console.log(err)
+                deleteTokenLocalStorage()
+            })
         }
     }, [])
 
@@ -32,21 +33,37 @@ export const AuthProvider = ({ children }) => {
         return JSON.parse(datos)
     }
 
+    const deleteTokenLocalStorage = () => {
+        console.log("Borrando token")
+        localStorage.removeItem('token')
+    }
+
     const sigIn = (data)=> {
-        fetchData({path: 'login', method: 'POST', body: data})
-        .then((token) => {
-            saveTokenLocalStorage(token)
-            console.log(token)
-            setUserState(true)
+        console.log("hola")
+        const promesa = fetchData({path: 'login', method: 'POST', body: data})
+
+        toast.promise(promesa, {
+            loading: 'Cargando....',
+            success: (token) => {
+                saveTokenLocalStorage(token)
+                tokenRef.current = token
+                setUserState(true)
+                return {
+                    title: 'Sesión iniciada correctamente',
+                    description: '¡Bienvenido!',
+                }
+            },
+            error: {
+                title: 'Error al iniciar sesión',
+                description: 'Usuario o contraseña incorrectos',
+            }
         })
-        .catch(err => console.error(err))
     }
 
 
     const sigOut = ()=> {
-        fetchData({path: 'logout'})
-        .then(()=> setUserState(false))
-        .catch(err => console.error(err))
+        deleteTokenLocalStorage()
+        setUserState(false)
     }
 
 

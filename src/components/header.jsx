@@ -27,6 +27,7 @@ export function Header () {
             <li onClick={()=> toggleMenu()}><Link to="/indumentaria">Indumentaria</Link></li>
             <li onClick={()=> toggleMenu()}><Link to="/electrodomesticos">Electrodomesticos</Link></li>
             <li onClick={()=> toggleMenu()}><Link to="/tecnologia">Tecnologia</Link></li>
+            <li onClick={()=> toggleMenu()}><Link to="/otros">Otros</Link></li>
           </ul>
         </nav>
       </header>

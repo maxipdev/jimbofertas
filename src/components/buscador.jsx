@@ -1,8 +1,10 @@
 import { useRef } from "react"
 import '../styles/buscador.css'
+import { useNavigate } from "react-router-dom"
 
 export const Buscador = ()=> {
 const buscardorRef = useRef()
+const navigate = useNavigate()
 
 
 const handleSubmit = (e) => {
@@ -11,7 +13,8 @@ const handleSubmit = (e) => {
     const formData = new FormData(e.target)
     const busqueda = formData.get("search")
 
-    console.log(busqueda)
+    navigate(`/?product=${busqueda}`)
+    
 }
 
 

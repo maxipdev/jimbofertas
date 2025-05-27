@@ -2,6 +2,7 @@ section {
   h1 {
     font-size: 16px;
     color: grey;
+    margin: 0 15px;
   }
 }
 
@@ -61,6 +62,8 @@ section {
     h2 {
       font-size: 25px;
       display: flex;
+      color: black;
+      text-transform: capitalize;
     }
 
     /*Esta el btn antes aca*/
@@ -74,7 +77,43 @@ section {
 
 
 }
-  
+
+
+/*Card Disable*/
+.disable {
+  position: relative;
+  filter: brightness(0.75);
+  cursor: not-allowed;
+}
+
+.disable .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.disable .overlay .sold-out-text {
+  color: red;
+  font-size: 2.8rem;
+  font-weight: bold;
+  transform: rotate(-40deg);
+  opacity: 0.6;
+  border: 5px solid red;
+  padding: 10px;
+  text-shadow: 1px 1px 2px black;
+}
+
+.disable .boton-disable, .link-disable {
+  pointer-events: none;
+}
 
 /*Estilos especificos de la card del admin*/
 .card-admin {
@@ -114,6 +153,14 @@ section {
 
 .title-container .title {
   color: gray;
+}
+
+
+/*Para evitar errors en cambios especificos, ya que esta hecho con grid lo movile*/
+@media (min-width: 750px) {
+  .card {
+    min-width: 284px;
+  }
 }
 
   
@@ -191,4 +238,13 @@ section {
     text-decoration: none;
   }
 
+  /*Card Disable*/
+
+  .disable .overlay .sold-out-text {
+    font-size: 2.3rem;
+    border: 5px solid red;
+    padding: 8px;
   }
+
+
+}

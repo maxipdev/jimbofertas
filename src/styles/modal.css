@@ -56,3 +56,14 @@
     font-size: 16px;
     background-color: #fff;
 }
+
+.crearPublicacion-container select {
+    border: none;
+    height: 40px;
+    border-bottom: 1.5px solid var(--primary-color);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .8);
+    padding: 10px 60px 10px 15px;
+    border-radius: 2px;
+    font-size: 16px;
+    background-color: #fff;
+}
