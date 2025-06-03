@@ -41,7 +41,7 @@ export function DinamicPage () {
                     <h3>$ {product.price}</h3>
 
                 <a className={product.enable == false && 'link-disable'}
-                    href={`https://wa.me/5491138276214?text=Hola,%20%20me%20gustaria%20comprar%20el%20siguiente%20producto:%20${product.name}`}
+                    href={`https://wa.me/5491159388165?text=Hola,%20%20me%20gustaria%20comprar%20el%20siguiente%20producto:%20${product.name}`}
                     target="_blank"
                     rel="noopener noreferrer">
                     <button className={`boton ${product.enable == false && "boton-disable"}`}>Comprar</button>
