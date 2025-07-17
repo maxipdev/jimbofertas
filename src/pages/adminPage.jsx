@@ -3,7 +3,8 @@ import { Modal } from "../components/modal";
 import '../styles/card.css'
 import '../styles/card-admin.css'
 import { useAdminPage } from "../hooks/useAdminProducts";
-import { Loader } from "../components/loader";
+import { Loader } from "../components/loader"; 
+import { AddFileImage } from "../components/addFileImage";
 
 export function AdminPage () {
     const [openModal, setOpenModal] = useState(false)
@@ -42,7 +43,7 @@ export function AdminPage () {
           <Modal setOpenModal={setOpenModal} title={"Crear Publicación"}>
               <div className="crearPublicacion-container">
                   <form autoComplete="Off" onSubmit={(event)=> handlesubmit(event)}>
-                      <input type="file" name="file" required/>
+                      <AddFileImage />
                       <input type="text" placeholder="Nombre" name="name" required/>
                       <input type="number" placeholder="Precio" name="price" required/>
                       <select name="category" required defaultValue="not-value">
@@ -63,7 +64,7 @@ export function AdminPage () {
           <Modal setOpenModal={setOpenModalEdit} title={"Editar Publicación"}>
               <div className="crearPublicacion-container">
                   <form autoComplete="Off" onSubmit={(event)=> Editar(event, valorSelectedRef.current)}>
-                      {/* <input type="file" name="file"/> */}
+                      <AddFileImage />
                       <input type="text" placeholder="Nombre" name="name"/>
                       <input type="number" placeholder="Precio" name="price"/>
                       <select name="category" defaultValue="not-value">

@@ -28,54 +28,66 @@ section {
 
 
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .12);
+}
 
-  
-  .img-container {
-    flex: 6;
-    max-width: 284px;
-    min-width: 150px;
-    padding: 0 16px 16px;
-    padding-top: 16px;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(0,0,0,.1);
+.card .content {
+  flex: 4;
+  max-width: 284px;
+  min-width: 150px;
+  padding: 0 16px 16px;
 
-    min-height: 261px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+
+.card .content .card-title {
+  font-size: clamp(1.35rem, 2.5vw, 1.5rem);
+  line-height: 1.2;
+  font-weight: 600;
+  max-height: calc(1.2em * 2);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  text-transform: lowercase;
+  margin: 5px 0;
+  color: black;
+}
+
+.card-title::first-letter {
+  text-transform: capitalize;
+}
+
+.card .content h3 {
+  font-weight: 600;
+}
+
+/*Esta el btn antes aca*/
+.card .content .boton a {
+    text-decoration: none;
+    color: #fff;
+    line-height: 40px;
   }
 
-  .content {
-    flex: 4;
-    max-width: 284px;
-    min-width: 150px;
-    padding: 0 16px 16px;
+.card .img-container {
+  flex: 6;
+  max-width: 284px;
+  min-width: 150px;
+  padding: 0 16px 16px;
+  padding-top: 16px;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(0,0,0,.1);
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  min-height: 261px;
 
-    h2 {
-      font-size: 25px;
-      display: flex;
-      color: black;
-      text-transform: capitalize;
-    }
-
-    /*Esta el btn antes aca*/
-    .boton a {
-      text-decoration: none;
-      color: #fff;
-      line-height: 40px;
-    }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
-
-
-
 }
 
 
@@ -170,7 +182,7 @@ section {
   .card-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 5px;
+    gap: 4px;
     padding: 0;
   }
 
@@ -205,22 +217,7 @@ section {
   .content {
     padding: 10px;
     max-height: 200px;
-    overflow: hidden;
-  }
-
-  .content h2 {
-    font-size: 1rem;
-    margin-bottom: 5px;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    transform: scale(0.9); /* se achica visualmente */
-    
-  }
-
-  .content h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
+    /* overflow: hidden; */
   }
 
   .boton {
