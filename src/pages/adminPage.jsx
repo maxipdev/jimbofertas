@@ -5,6 +5,8 @@ import '../styles/card-admin.css'
 import { useAdminPage } from "../hooks/useAdminProducts";
 import { Loader } from "../components/loader"; 
 import { AddFileImage } from "../components/addFileImage";
+import { AdminCard } from "../components/adminCard";
+
 
 export function AdminPage () {
     const [openModal, setOpenModal] = useState(false)
@@ -83,24 +85,17 @@ export function AdminPage () {
 
         <div className="card-container">
           {products.map(product => (
-              <div className="card card-admin" key={product.id}>
-                <div className="img-container img-admin">
-                  <img src={`https://bswmbazkzzilbxoodxmr.supabase.co/storage/v1/object/public/products/public/${product.img}`} alt={`imagen de ${product.name}`} />
-                </div>
-              <div className='line'></div>
-              <div className="content adminContent">
-                <h2>{product.name}</h2>
-                <h3>$ {product.price}</h3>
-                <div className="btn-container">
-                  <button className="boton" onClick={()=> {
-                    setOpenModalEdit(true)
-                    valorSelectedRef.current = product.id
-                  }}>Editar</button>
-                  <button className="boton" onClick={()=> handleDelete(product.id)}>Eliminar</button>
-                  <button className={`boton ${product.enable ? "" : "btn-disable"}`} onClick={()=> Desabilitar(product.id, product.enable)}>{product.enable ? "Desabilitar" : "Habilitar"}</button>
-                </div>
-              </div>
-            </div>
+              <AdminCard
+                id={product.id}
+                name={product.name}
+                price={product.price}
+                img={product.img}
+                status={product.enable}
+                changeStatus={Desabilitar}
+                delete={handleDelete}
+                edit={setOpenModalEdit}
+                key={product.id}
+              />
           ))}
         </div>
         </>

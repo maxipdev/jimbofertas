@@ -29,7 +29,7 @@ export function DinamicPage () {
         {products.map(product => (
             <Card
                 status={product.enable}
-                id={product.id}
+                key={product.id}
                 name={product.name}
                 price={product.price}
                 img={product.img}

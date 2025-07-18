@@ -1,7 +1,7 @@
 
-export function Card({status, id, name, img, price}) {
+export function Card({status, name, img, price}) {
     return (
-        <div className={`card ${status == false && "disable"}`} key={id}>
+        <div className={`card ${status == false && "disable"}`}>
             {status == false ? <div className="overlay">
                 <span className='sold-out-text'>AGOTADO</span>
             </div> : null}
