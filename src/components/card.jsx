@@ -1,12 +1,12 @@
 
-export function Card({status, name, img, price}) {
+export function Card({status, name, img, price, openImage}) {
     return (
         <div className={`card ${status == false && "disable"}`}>
             {status == false ? <div className="overlay">
                 <span className='sold-out-text'>AGOTADO</span>
             </div> : null}
 
-            <div className="img-container">
+            <div className="img-container" onClick={()=> openImage({name, img})}>
                 <img src={`https://bswmbazkzzilbxoodxmr.supabase.co/storage/v1/object/public/products/public/${img}`} alt={name} />
             </div>
             <div className='line'></div>

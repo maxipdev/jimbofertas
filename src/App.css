@@ -16,8 +16,9 @@ body {
   line-height: 1.5;
   font-weight: 400;
   background: var(--background);
-}
 
+  /* min-height: 100dvh; */
+}
 
 
 .boton {

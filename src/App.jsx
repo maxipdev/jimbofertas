@@ -9,6 +9,7 @@ import { DinamicPage } from './pages/dinamicPage'
 import { PrivateRoute } from './hooks/privateRoute'
 import { RedirectToAdminPage } from './hooks/redirectToAdminPage'
 import { Toaster } from 'sonner'
+import './styles/footer.css'
 
 
 function App() {
@@ -20,23 +21,37 @@ function App() {
 
       <Toaster position="top-right" richColors />
       
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/:category" element={<DinamicPage />} />
+      <main>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/:category" element={<DinamicPage />} />
 
-        {/*Private routes*/}
-        <Route element={<PrivateRoute />}>
-            <Route path="/admin" element={<AdminPage />} />
-        </Route>
+          {/*Private routes*/}
+          <Route element={<PrivateRoute />}>
+              <Route path="/admin" element={<AdminPage />} />
+          </Route>
 
-        {/*TE lleva a la ruta privada una vez inicida la sesion*/}
-        <Route element={<RedirectToAdminPage />}>
-            <Route path="/login" element={<Login />} />
-        </Route>
+          {/*TE lleva a la ruta privada una vez inicida la sesion*/}
+          <Route element={<RedirectToAdminPage />}>
+              <Route path="/login" element={<Login />} />
+          </Route>
 
-        {/*No se encontro la ruta*/}
-        <Route path="*" element={<Home />} />
-      </Routes>
+          {/*No se encontro la ruta*/}
+          <Route path="*" element={<Home />} />
+        </Routes>
+      </main>
+
+
+
+
+      <footer>
+        <h1>Contacto:</h1>
+        <div className='contacto'>whatsapp: 1122233344</div>
+        <div className='publicidad'>
+          <span>@Todos los derechos reservados</span>
+          <span>Web site created by Maximo Penacino</span>
+        </div>
+      </footer>
 
     </>
   )

@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react"
-import { fetchData } from "../fetchData";
+import { fetchData } from "../fetchData"
+import { useQuery } from '@tanstack/react-query'
 
 export const useGetProducts = ({category = null, search = null}) => {
-    const [products, setProducts] = useState([])
-    const [loading, setLoading] = useState(true) // Digo que siempre está el loading activo cuanod apenas empieza la pagina
-    const [error, setError] = useState(false)
 
     let URL = `products`
     if (category) {
@@ -15,15 +12,20 @@ export const useGetProducts = ({category = null, search = null}) => {
     }
     console.log(URL)
 
-    useEffect(()=> {
-        fetchData({path: URL})
-        .then(data => setProducts(data))
-        .catch(() => setError(true))
-        .finally(() => setLoading(false))
+    const { isLoading, isError, data: products = [] } = useQuery({
+        queryKey: ['products', category, search],
+        queryFn: async () => await fetchData({ path: URL }),
+        refetchOnWindowFocus: false
+    })
 
-    }, [category, search])
 
-    console.log(loading)
+    // useEffect(()=> {
+    //     fetchData({path: URL})
+    //     .then(data => setProducts(data))
+    //     .catch(() => setError(true))
+    //     .finally(() => setLoading(false))
 
-    return {products, loading, error}
+    // }, [category, search])
+
+    return {products, loading: isLoading, error: isError}
 }

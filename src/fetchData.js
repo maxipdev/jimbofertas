@@ -1,25 +1,47 @@
 
-export const fetchData = ({path = "", method = "GET", body = null, token = ""})=> {
+// export const fetchData = ({path = "", method = "GET", body = null, token = ""})=> {
+//     const options = {
+//         method: method,
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': `Bearer ${token}`
+//         },
+//     }
+
+//     if (body) options.body = JSON.stringify(body) // Incluyo a las options si existe el body
+
+//     // console.log(`http://localhost:1234/${path}`)
+//     // return fetch(`http://localhost:1234/${path}`, options)
+//     return fetch(`https://jimbofertas-api.vercel.app/${path}`, options)
+//     .then(res => {
+//         if (!res.ok) {
+//           throw new Error('Error en la solicitud')
+//         } 
+//         return res.json()
+//     })
+// }
+
+
+export const fetchData = async ({ path = "", method = "GET", body = null, token = "" }) => {
     const options = {
-        method: method,
+        method,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
     }
 
-    if (body) options.body = JSON.stringify(body) // Incluyo a las options si existe el body
+    if (body) options.body = JSON.stringify(body)
 
-    // console.log(`http://localhost:1234/${path}`)
-    // return fetch(`http://localhost:1234/${path}`, options)
-    return fetch(`https://jimbofertas-api.vercel.app/${path}`, options)
-    .then(res => {
-        if (!res.ok) {
-          throw new Error('Error en la solicitud')
-        } 
-        return res.json()
-    })
+    const res = await fetch(`https://jimbofertas-api.vercel.app/${path}`, options)
+
+    if (!res.ok) throw new Error('Error en la solicitud')
+
+    return await res.json()  // Si ya viene como lo necesitás, ¡listo!
 }
+
+
+
 
 export const uploadImage = (formData, token) => {
     const options = {

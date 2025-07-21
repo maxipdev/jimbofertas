@@ -1,0 +1,57 @@
+
+footer {
+    width: 100%;
+    margin-top: 10px;
+    background-color: #3A4460;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    padding: 5px 0;
+}
+
+footer h1 {
+    color: white;
+    font-size: 30px;
+    font-weight: 500;
+}
+
+.contacto {
+    color: white;
+    font-size: 20px;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+.publicidad {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1500px;
+}
+
+.publicidad span {
+    color: white;
+    font-size: 12px;
+}
+
+@media (max-width: 750px) {
+    footer {
+        padding: 5px 10px;
+    }
+
+    .publicidad {
+        margin-top: 5px;
+    }
+
+    .publicidad span {
+        font-style: 10px;
+        text-align: left;
+    }
+
+    .publicidad span:last-child {
+        text-align: right;
+    }
+
+}
