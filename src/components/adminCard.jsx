@@ -26,7 +26,7 @@ export function AdminCard({id, name, img, price, status, changeStatus, edit, han
                 <div className={`extra-content ${openMenu ? "open" : ""}`}>
                     <button className="boton" onClick={()=> edit(true)}>Editar</button>
                     <button className="boton" onClick={()=> handleDelete(id)}>Eliminar</button>
-                    <button className="boton" onClick={handleOcultar}>Ocultar</button>
+                    <button className="boton" onClick={handleOcultar}>Ocultar producto</button>
                 </div>
                 
             </div>

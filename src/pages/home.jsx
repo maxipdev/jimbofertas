@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom'
 import { Loader } from '../components/loader'
-import { useGetProducts } from '../hooks/products'
+import { useGetProducts } from '../hooks/useGetProducts'
 import '../styles/card.css'
 import { Card } from '../components/card'
 import { useState } from 'react'

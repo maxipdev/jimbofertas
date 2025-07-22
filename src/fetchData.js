@@ -18,7 +18,7 @@ export const fetchData = async ({ path = "", method = "GET", body = null, token 
 }
 
 
-
+// REVISAR.....
 
 export const uploadImage = (formData, token) => {
     const options = {

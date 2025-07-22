@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Modal } from "../components/modal";
 import '../styles/card.css'
 import '../styles/card-admin.css'
@@ -6,26 +6,38 @@ import { useAdminPage } from "../hooks/useAdminProducts";
 import { Loader } from "../components/loader"; 
 import { AddFileImage } from "../components/addFileImage";
 import { AdminCard } from "../components/adminCard";
+import { useSearchParams } from "react-router-dom";
+import { useGetProducts } from "../hooks/useGetProducts";
+import { useUpdateProduct } from "../hooks/useUpdateProduct";
 
 
 export function AdminPage () {
     const [openModal, setOpenModal] = useState(false)
     const [openModalEdit, setOpenModalEdit] = useState(false)
     const valorSelectedRef = useRef(null) 
+    const [searchParams]  = useSearchParams()
+    const search = searchParams.get('product')
+    const {products, loading} = useGetProducts({search})
 
-    const {products, loading, GetProducts, CreateProduct, Desabilitar, DeleteProduct, Editar} = useAdminPage()
-    //Pide los productos
-    useEffect(()=> {
-      GetProducts()
-    }, [])
+    // const {products, loading, GetProducts, CreateProduct, Desabilitar, DeleteProduct, Editar} = useAdminPage()
+
+    const { mutate: updateProduct } = useUpdateProduct()
+
+    const handleUpdate = (product) => {
+      updateProduct(product)
+    }
 
     // Creo el poducto
     const handlesubmit = (event)=> {
-        CreateProduct(event)
+        // CreateProduct(event)
     }
 
     const handleDelete = (id) => {
-      DeleteProduct(id)
+      // DeleteProduct(id)
+    }
+
+    const Desabilitar = () => {
+
     }
 
 

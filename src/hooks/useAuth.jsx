@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
     }
 
     const sigIn = (data)=> {
-        console.log("hola")
         const promesa = fetchData({path: 'login', method: 'POST', body: data})
 
         toast.promise(promesa, {

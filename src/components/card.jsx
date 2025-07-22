@@ -16,7 +16,7 @@ export function Card({status, name, img, price, openImage}) {
                 </div>
                 <h3>$ {price}</h3>
 
-            <a className={status == false && 'link-disable'}
+            <a className={status == false ? 'link-disable': ""}
                 href={`https://wa.me/5491159388165?text=Hola,%20%20me%20gustaria%20comprar%20el%20siguiente%20producto:%20${name}`}
                 target="_blank"
                 rel="noopener noreferrer">

@@ -2,21 +2,15 @@ import { useState } from "react"
 import { fetchData, uploadImage } from "../fetchData"
 import { useAuth } from "./useAuth"
 import { toast } from "sonner"
+import { useCreateProduct } from "./useCreateProduct"
 
 export const useAdminPage = () => {
     const [products, setProducts] = useState([])
-    const [loading, setLoading] = useState(false)
     const { tokenRef } = useAuth()
     const token = tokenRef.current
+    const {mutate: createProduct} = useCreateProduct()
     
     // Obtiene los productos
-    const GetProducts = () => {
-        setLoading(true)
-        fetchData({path: 'products/admin', method: 'GET', token: token})
-        .then(data => setProducts(data))
-        .catch(err => console.error(err))
-        .finally(()=> setLoading(false))
-    } 
 
     // Guarda en la base de datos la imagen
     const saveImage = (file) => {
@@ -32,7 +26,7 @@ export const useAdminPage = () => {
     }
 
     // Guarda la descripcion en la base de datos
-    const CreateProduct = async (event)=> {
+    const handleCreateProduct = async (event)=> {
         event.preventDefault()
         const formData = new FormData(event.target)
 
@@ -48,22 +42,17 @@ export const useAdminPage = () => {
 
         if (!fileName) return console.error("no se guardo la imagen")
 
-        const data = {img: fileName, name, price, category}
+        const newProduct = {img: fileName, name, price, category}
 
         // Lo guardo en la tabla
-        const promesa = fetchData({path: 'products', method: 'POST', body: data, token: token})
-        toast.promise(promesa, {
-            loading: 'Cargando....',
-            success: ()=>  {
-                setProducts(prev => [...prev, data])
-                return 'Cambios Guardados correctamente'
-            },
-            error: {
-                title: 'Error al crear el producto',
-                description: 'En caso de que el error continue, por favor contactar al administrador',
-            }
-        })
+        createProduct({product: newProduct, token})
     }
+
+
+
+
+
+
 
     //Desabilita un producto
     const Desabilitar = (id, estado) => {
@@ -81,21 +70,6 @@ export const useAdminPage = () => {
     }
 
     // Elimina el producto
-    const DeleteProduct = (id) => {
-        const promesa = fetchData({path: `products/${id}`, method: 'DELETE', token: token})
-
-        toast.promise(promesa, {
-            loading: 'Eliminado.....',
-            success: ()=>  {
-                setProducts(prev => prev.filter(product => product.id !== id))
-                return {
-                    title: 'Eliminado correctamente',
-                    description: `Se elimino el producto con id: ${id}` 
-                }
-            },
-            error: 'Error al eliminar el producto'
-        })
-    }
 
     const Editar = async (event, id) => {
         event.preventDefault()
