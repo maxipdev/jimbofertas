@@ -15,17 +15,9 @@ export const useGetProducts = ({category = null, search = null}) => {
     const { isLoading, isError, data: products = [] } = useQuery({
         queryKey: ['products', category, search],
         queryFn: async () => await fetchData({ path: URL }),
-        refetchOnWindowFocus: false
+        refetchOnWindowFocus: false,
+        staleTime: 1000 * 60 * 5 // cache fresca por 5 minutos
     })
-
-
-    // useEffect(()=> {
-    //     fetchData({path: URL})
-    //     .then(data => setProducts(data))
-    //     .catch(() => setError(true))
-    //     .finally(() => setLoading(false))
-
-    // }, [category, search])
 
     return {products, loading: isLoading, error: isError}
 }
