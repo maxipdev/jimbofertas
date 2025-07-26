@@ -1,7 +1,11 @@
 import { useState } from "react"
 
-export function AdminCard({id, name, img, price, status, changeStatus, edit, handleDelete}) {
+export function AdminCard({id, name, img, price, status, handleDisable, handleUpdate, handleDelete, selectedValueRef, openImage}) {
     const [openMenu, setOpenMenu] = useState(false)
+
+    const changeSelectedProduct = (id)=> {
+        selectedValueRef.current = id
+    }
 
     const handleOcultar = ()=> {
         alert("La función ocultar todavía se encuentra en proceso de desarrollo")
@@ -10,7 +14,7 @@ export function AdminCard({id, name, img, price, status, changeStatus, edit, han
     return (
         <div className={`card card-admin ${openMenu ? "big-card" : ""}`}>
 
-            <div className="img-container">
+            <div className="img-container" onClick={()=> openImage({name, img})}>
                 <img src={`https://bswmbazkzzilbxoodxmr.supabase.co/storage/v1/object/public/products/public/${img}`} alt={name} />
             </div>
 
@@ -20,11 +24,11 @@ export function AdminCard({id, name, img, price, status, changeStatus, edit, han
                 <div className="card-title">{name}</div>
                 <h3>$ {price}</h3>
 
-                <button className={`boton ${status ? "" : "btn-disable"}`} onClick={()=> changeStatus(id, status)}>{status ? "Desabilitar" : "Habilitar"}</button>
+                <button className={`boton ${status ? "" : "btn-disable"}`} onClick={()=> handleDisable(id, status)}>{status ? "Desabilitar" : "Habilitar"}</button>
 
                 <p onClick={()=> setOpenMenu(!openMenu)}>{openMenu ? "Ver menos" : "Ver más opciones"}</p>
                 <div className={`extra-content ${openMenu ? "open" : ""}`}>
-                    <button className="boton" onClick={()=> edit(true)}>Editar</button>
+                    <button className="boton" onClick={()=> changeSelectedProduct(id)}>Editar</button>
                     <button className="boton" onClick={()=> handleDelete(id)}>Eliminar</button>
                     <button className="boton" onClick={handleOcultar}>Ocultar producto</button>
                 </div>

@@ -8,37 +8,19 @@ import { AddFileImage } from "../components/addFileImage";
 import { AdminCard } from "../components/adminCard";
 import { useSearchParams } from "react-router-dom";
 import { useGetProducts } from "../hooks/useGetProducts";
-import { useUpdateProduct } from "../hooks/useUpdateProduct";
-
+import { ImageModal } from "../components/imageModal";
 
 export function AdminPage () {
     const [openModal, setOpenModal] = useState(false)
     const [openModalEdit, setOpenModalEdit] = useState(false)
-    const valorSelectedRef = useRef(null) 
+    const selectedValueRef = useRef(null) 
     const [searchParams]  = useSearchParams()
     const search = searchParams.get('product')
     const {products, loading} = useGetProducts({search})
+    const [openImage, setOpenImage] = useState(null)
 
-    // const {products, loading, GetProducts, CreateProduct, Desabilitar, DeleteProduct, Editar} = useAdminPage()
+    const { handleCreate, handleUpdate, handleDelete, handleDisable, loadingCreate } = useAdminPage()
 
-    const { mutate: updateProduct } = useUpdateProduct()
-
-    const handleUpdate = (product) => {
-      updateProduct(product)
-    }
-
-    // Creo el poducto
-    const handlesubmit = (event)=> {
-        // CreateProduct(event)
-    }
-
-    const handleDelete = (id) => {
-      // DeleteProduct(id)
-    }
-
-    const Desabilitar = () => {
-
-    }
 
 
     if (loading) {
@@ -53,10 +35,12 @@ export function AdminPage () {
             <button className="boton" onClick={()=> setOpenModal(true)}>Nuevo Producto</button>
         </div>
 
+        {openImage && <ImageModal closeModal={setOpenImage} img={openImage.img} name={openImage.name} />}
+
         {openModal && 
           <Modal setOpenModal={setOpenModal} title={"Crear Publicación"}>
               <div className="crearPublicacion-container">
-                  <form autoComplete="Off" onSubmit={(event)=> handlesubmit(event)}>
+                  <form autoComplete="Off" onSubmit={(event)=> handleCreate(event)}>
                       <AddFileImage />
                       <input type="text" placeholder="Nombre" name="name" required/>
                       <input type="number" placeholder="Precio" name="price" required/>
@@ -68,7 +52,9 @@ export function AdminPage () {
                         <option value="c3f7b751-a0ac-4385-9411-8dec0774c6a0">tecnologia</option>
                         <option value="351e0ef0-08c2-4da9-adc9-5d742c41c2d9">otros</option>
                       </select>
-                      <button className="boton">Crear Publicación</button>
+                      <button className="boton">
+                        {loadingCreate ? "Cargando...." : "Crear Publicación"}
+                      </button>
                   </form>
               </div>
           </Modal>
@@ -77,7 +63,7 @@ export function AdminPage () {
         {openModalEdit && 
           <Modal setOpenModal={setOpenModalEdit} title={"Editar Publicación"}>
               <div className="crearPublicacion-container">
-                  <form autoComplete="Off" onSubmit={(event)=> Editar(event, valorSelectedRef.current)}>
+                  <form autoComplete="Off" onSubmit={(event)=> handleUpdate(event, selectedValueRef.current)}>
                       <AddFileImage />
                       <input type="text" placeholder="Nombre" name="name"/>
                       <input type="number" placeholder="Precio" name="price"/>
@@ -103,10 +89,12 @@ export function AdminPage () {
                 price={product.price}
                 img={product.img}
                 status={product.enable}
-                changeStatus={Desabilitar}
-                delete={handleDelete}
-                edit={setOpenModalEdit}
+                handleDisable={handleDisable}
+                handleDelete={handleDelete}
+                handleUpdate={setOpenModalEdit}
+                openImage = {setOpenImage}
                 key={product.id}
+                selectedValueRef = {selectedValueRef}
               />
           ))}
         </div>

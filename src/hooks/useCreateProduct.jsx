@@ -1,4 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { fetchData } from "../fetchData"
+import { toast } from "sonner"
 
 export const useCreateProduct = () => {
     const queryClient = useQueryClient()
@@ -7,31 +9,26 @@ export const useCreateProduct = () => {
         mutationFn: ({ product, token }) => 
             fetchData({path: 'products', method: 'POST', body: product, token: token}), 
         onMutate: async ({ product }) => {
-            await queryClient.cancelQueries(['products'])
+            await queryClient.cancelQueries('products')
 
             const previousProducts = queryClient.getQueryData(['products'])
+            const newProduct = {...product, id: Date.now().toString()}
 
-            queryClient.setQueryData(['products'], (old = []) => {
-                [...old, product]
+            queryClient.setQueryData('products', (old = []) => {
+                return [...old, newProduct]
             })
             
             return { previousProducts }
         }, 
         onSuccess: () => {
-            toast.success({
-                title: 'Creado correctamente',
-                description: `Se creó el producto`
-            })
+            toast.success("Producto creado correctamente")
         },
         onError: (_err, _variable, context) => {
             queryClient.setQueryData(['products'], context.previousProducts)
-            toast.error({
-                title: 'Error al actualizar el producto',
-                description: `Ocurrió un error inesperado al crear el producto, por favor si el error contiua contactar al administrador`
-            })
+            toast.error("Error al crear el producto")
         },
         onSettled: () => {
-            queryClient.invalidateQueries(['products'])
+            queryClient.invalidateQueries('products')
         }
     })
 }

@@ -1,4 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { fetchData } from "../fetchData"
+import { toast } from "sonner"
 
 export const useUpdateProduct = () => {
     const queryClient = useQueryClient()
@@ -7,7 +9,7 @@ export const useUpdateProduct = () => {
         mutationFn: ({ product, token }) => 
             fetchData({path: `products/edit/${id}`, method: 'PATCH', body: product, token: token}), 
         onMutate: async ({ product }) => {
-            await queryClient.cancelQueries(['products'])
+            await queryClient.cancelQueries('products')
 
             const previousProducts = queryClient.getQueryData(['products'])
 
@@ -18,20 +20,14 @@ export const useUpdateProduct = () => {
             return { previousProducts }
         }, 
         onSuccess: () => {
-            toast.success({
-                title: 'Actualizado correctamente',
-                description: `Se actualizo el producto`
-            })
+            toast.success('Actualizado correctamente')
         },
         onError: (_err, _variable, context) => { // los dejo el err y el updatedProduct pq es en el orden que se envian las cosas en el calback
             queryClient.setQueryData(['products'], context.previousProducts)
-            toast.error({
-                title: 'Error al actualizar el producto',
-                description: `Ocurrió un error inesperado al actualizar`
-            })
+            toast.error('Error al actualizar el producto')
         },
         onSettled: () => {
-            queryClient.invalidateQueries(['products'])
+            queryClient.invalidateQueries('products')
         }
     })
 }

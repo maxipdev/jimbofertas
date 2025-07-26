@@ -1,5 +1,6 @@
-import { useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
+import { fetchData } from "../fetchData"
 
 export const useDeleteProduct = () => {
     const queryClient = useQueryClient()
@@ -8,7 +9,7 @@ export const useDeleteProduct = () => {
         mutationFn: ({ id, token }) => 
             fetchData({ path: `products/${id}`, method: 'DELETE', token }), 
         onMutate: async ({id}) => {
-            await queryClient.cancelQueries(['products'])
+            await queryClient.cancelQueries('products')
 
             const previousProducts = queryClient.getQueryData(['products'])
 
@@ -18,21 +19,15 @@ export const useDeleteProduct = () => {
             
             return { previousProducts }
         }, 
-        onSuccess: (_data, { id }) => {
-            toast.success({
-                title: 'Eliminado correctamente',
-                description: `Se eliminó el producto con id: ${id}`
-            })
+        onSuccess: () => {
+            toast.success('Eliminado correctamente')
         },
         onError: (_err, { id }, context) => {
             queryClient.setQueryData(['products'], context.previousProducts)
-            toast.error({
-                title: 'Error al eliminar el producto',
-                description: `Ocurrió un error inesperado al eliminar el producto con id: ${id}`
-            })
+            toast.error('Ocurrió un error inesperado al eliminar el producto')
         },
         onSettled: () => {
-            queryClient.invalidateQueries(['products'])
+            queryClient.invalidateQueries('products')
         }
     })
 }
