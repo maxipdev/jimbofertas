@@ -12,8 +12,8 @@ import { uploadImage } from "../fetchData";
         .catch(()=> {return null})
     }
 
-    // Guarda la descripcion en la base de datos
-export const getFormData = async (event, token)=> {
+// Guarda la descripcion en la base de datos
+export const getFormData = async (event, token, metodo = null)=> { // el metodo sirve para diferenciar entre el form para editar y para crear la publicacion
         event.preventDefault()
         const formData = new FormData(event.target)
 
@@ -24,9 +24,14 @@ export const getFormData = async (event, token)=> {
 
         event.target.reset() // reseto el form
 
-        const fileName = await saveImage(file, token)
+        let fileName = undefined
 
-        if (!fileName) return console.error("no se guardo la imagen")
+        // evalua que el metodo no sea null, ya que por defecto lo es
+        if (!metodo) {
+            fileName = await saveImage(file, token)
+
+            if (!fileName) return console.error("no se guardo la imagen")
+        }
 
         const newProduct = {img: fileName, name, price, category}
 

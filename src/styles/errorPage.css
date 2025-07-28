@@ -17,3 +17,9 @@
 .contenedor-error-page h2 {
     font-weight: 400;
 }
+
+@media (max-width: 750px) {
+    .contenedor-error-page h1 {
+        text-align: center;
+    }
+}

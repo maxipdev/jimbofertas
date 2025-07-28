@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { Modal } from "../components/modal";
 import '../styles/card.css'
 import '../styles/card-admin.css'
@@ -13,7 +13,6 @@ import { ImageModal } from "../components/imageModal";
 export function AdminPage () {
     const [openModal, setOpenModal] = useState(false)
     const [openModalEdit, setOpenModalEdit] = useState(false)
-    const selectedValueRef = useRef(null) 
     const [searchParams]  = useSearchParams()
     const search = searchParams.get('product')
     const {products, loading} = useGetProducts({search})
@@ -63,7 +62,7 @@ export function AdminPage () {
         {openModalEdit && 
           <Modal setOpenModal={setOpenModalEdit} title={"Editar Publicación"}>
               <div className="crearPublicacion-container">
-                  <form autoComplete="Off" onSubmit={(event)=> handleUpdate(event, selectedValueRef.current)}>
+                  <form autoComplete="Off" onSubmit={(event)=> handleUpdate(event, openModalEdit)}>
                       <AddFileImage />
                       <input type="text" placeholder="Nombre" name="name"/>
                       <input type="number" placeholder="Precio" name="price"/>
@@ -94,7 +93,6 @@ export function AdminPage () {
                 handleUpdate={setOpenModalEdit}
                 openImage = {setOpenImage}
                 key={product.id}
-                selectedValueRef = {selectedValueRef}
               />
           ))}
         </div>

@@ -2,12 +2,12 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { fetchData } from "../fetchData"
 import { toast } from "sonner"
 
-export const useUpdateProduct = () => {
+export const useChangeVisibilityProduct = () => {
     const queryClient = useQueryClient()
 
     return useMutation({
-        mutationFn: ({ product, token }) => 
-            fetchData({path: `products/edit/${product.id}`, method: 'PATCH', body: product, token: token}), 
+        mutationFn: ({ id, product, token }) => 
+            fetchData({path: `products/${id}`, method: 'PATCH', body: product, token: token}), 
         onMutate: async ({ product }) => {
             await queryClient.cancelQueries('products')
 
@@ -20,11 +20,11 @@ export const useUpdateProduct = () => {
             return { previousProducts }
         }, 
         onSuccess: () => {
-            toast.success('Actualizado correctamente')
+            toast.success('Visibilidad actualizada correctamente')
         },
         onError: (_err, _variable, context) => { // los dejo el err y el updatedProduct pq es en el orden que se envian las cosas en el calback
             queryClient.setQueryData(['products'], context.previousProducts)
-            toast.error('Error al actualizar el producto')
+            toast.error('Error al cambiar la visibilidad del producto')
         },
         onSettled: () => {
             queryClient.invalidateQueries('products')

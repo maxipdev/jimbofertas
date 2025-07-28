@@ -1,10 +1,11 @@
 import { useState } from "react"
 
-export function AdminCard({id, name, img, price, status, handleDisable, handleUpdate, handleDelete, selectedValueRef, openImage}) {
+export function AdminCard({id, name, img, price, status, handleDisable, handleUpdate, handleDelete, openImage}) {
     const [openMenu, setOpenMenu] = useState(false)
 
     const changeSelectedProduct = (id)=> {
-        selectedValueRef.current = id
+        const oldState = {id, name, img, price, enable: status}
+        handleUpdate(oldState) // activa la modal de edicion y le paso el viejo estado
     }
 
     const handleOcultar = ()=> {

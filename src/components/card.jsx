@@ -17,10 +17,10 @@ export function Card({status, name, img, price, openImage}) {
                 <h3>$ {price}</h3>
 
             <a className={status == false ? 'link-disable': ""}
-                href={`https://wa.me/5491159388165?text=Hola,%20%20me%20gustaria%20comprar%20el%20siguiente%20producto:%20${name}`}
+                href={`https://wa.me/5491154873779?text=Hola,%20%20me%20gustaria%20comprar%20el%20siguiente%20producto:%20${name}`}
                 target="_blank"
                 rel="noopener noreferrer">
-                <button className={`boton ${status == false && "boton-disable"}`}>Comprar</button>
+                <button className={`boton ${status == false ? "boton-disable" : ""}`}>Comprar</button>
             </a>
             </div>
         </div>

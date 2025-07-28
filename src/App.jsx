@@ -46,7 +46,7 @@ function App() {
 
       <footer>
         <h1>Contacto:</h1>
-        <div className='contacto'>whatsapp: 1122233344</div>
+        <div className='contacto'>whatsapp: 1154873779</div>
         <div className='publicidad'>
           <span>@Todos los derechos reservados</span>
           <span>Web site created by Maximo Penacino</span>

@@ -4,6 +4,7 @@ import { useCreateProduct } from "./useCreateProduct"
 import { useUpdateProduct } from "./useUpdateProduct"
 import { getFormData } from "./useGetFormInfo"
 import { useDeleteProduct } from "./useDeleteProduct"
+import { useChangeVisibilityProduct } from "./useChangeVisibility"
 
 export const useAdminPage = () => {
     const { tokenRef } = useAuth()
@@ -12,12 +13,20 @@ export const useAdminPage = () => {
     const createMutation = useCreateProduct()
     const updateMutation = useUpdateProduct()
     const deleteMutation = useDeleteProduct()
+    const changeVisibility = useChangeVisibilityProduct()
     
-    const handleUpdate = async()=> {
-        alert("Funcion desactivada momentaneamente, en cambio podes borrar el producto")
-        const newProduct = await getFormData(e, token)
+    const handleUpdate = async(event, oldState)=> {
+        event.preventDefault()
 
-        //updateMutation.mutate({ product: newProduct, token })
+        const newProduct = await getFormData(event, token, 'update')
+
+        for (const key in newProduct) {
+            if (newProduct[key] !== '' && newProduct[key] !== undefined && newProduct[key] !== null) {
+                oldState[key] = newProduct[key];
+            }
+        }
+
+        updateMutation.mutate({ product: oldState, token })
     }
 
     const handleCreate = async(e)=> {
@@ -31,8 +40,10 @@ export const useAdminPage = () => {
     }
 
     const handleDisable = (id, status)=> {
-        const data = {enable: !estado}
-        
+        const data = {enable: !status}
+        console.log(id, status)
+        console.log(data)
+        changeVisibility.mutate({ id, product: data, token })
     }
 
 
