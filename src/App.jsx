@@ -1,16 +1,15 @@
-import { AdminPage } from './pages/adminPage'
-import './App.css'
-import {Route, Routes} from "react-router-dom"
-import { Buscador } from './components/buscador'
-import { Header } from './components/header'
-import { Home } from './pages/home'
-import { Login } from './pages/login'
-import { DinamicPage } from './pages/dinamicPage'
-import { PrivateRoute } from './hooks/privateRoute'
-import { RedirectToAdminPage } from './hooks/redirectToAdminPage'
-import { Toaster } from 'sonner'
-import './styles/footer.css'
-
+import { AdminPage } from "./pages/adminPage";
+import "./App.css";
+import { Route, Routes } from "react-router-dom";
+import { Buscador } from "./components/buscador";
+import { Header } from "./components/header";
+import { Home } from "./pages/home";
+import { Login } from "./pages/login";
+import { DinamicPage } from "./pages/dinamicPage";
+import { PrivateRoute } from "./hooks/privateRoute";
+import { RedirectToAdminPage } from "./hooks/redirectToAdminPage";
+import { Toaster } from "sonner";
+import "./styles/footer.css";
 
 function App() {
   return (
@@ -20,7 +19,7 @@ function App() {
       <Buscador></Buscador>
 
       <Toaster position="top-right" richColors />
-      
+
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
@@ -28,12 +27,12 @@ function App() {
 
           {/*Private routes*/}
           <Route element={<PrivateRoute />}>
-              <Route path="/admin" element={<AdminPage />} />
+            <Route path="/admin" element={<AdminPage />} />
           </Route>
 
           {/*TE lleva a la ruta privada una vez inicida la sesion*/}
           <Route element={<RedirectToAdminPage />}>
-              <Route path="/login" element={<Login />} />
+            <Route path="/login" element={<Login />} />
           </Route>
 
           {/*No se encontro la ruta*/}
@@ -41,20 +40,16 @@ function App() {
         </Routes>
       </main>
 
-
-
-
       <footer>
         <h1>Contacto:</h1>
-        <div className='contacto'>whatsapp: 1154873779</div>
-        <div className='publicidad'>
+        <div className="contacto">whatsapp: 1159388165</div>
+        <div className="publicidad">
           <span>@Todos los derechos reservados</span>
           <span>Web site created by Maximo Penacino</span>
         </div>
       </footer>
-
     </>
-  )
+  );
 }
 
-export default App
+export default App;
