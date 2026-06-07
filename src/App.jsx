@@ -40,9 +40,10 @@ function App() {
         </Routes>
       </main>
 
-      <footer>
+      <footer id="contacto">
         <h1>Contacto:</h1>
         <div className="contacto">whatsapp: 1159388165</div>
+        <div className="contacto">Instagram: estacion sur</div>
         <div className="publicidad">
           <span>@Todos los derechos reservados</span>
           <span>Web site created by Maximo Penacino</span>
