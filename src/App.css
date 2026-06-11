@@ -1,6 +1,7 @@
 :root {
-  --primary-color: #2968c8;
-  --menu-background-mobile-color: #3A4460;
+  /* --primary-color: #2968c8; */
+  --primary-color: black;
+  --menu-background-mobile-color: #3a4460;
   --background: #e7e7e7;
 }
 
@@ -19,7 +20,6 @@ body {
 
   /* min-height: 100dvh; */
 }
-
 
 .boton {
   border-radius: 6px;

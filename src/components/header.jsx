@@ -14,8 +14,13 @@ export function Header() {
   return (
     <header>
       <nav>
-        <Link to="/" className="logo">
-          Estación Sur
+        <Link to="/">
+          <div className="logo-container">
+            <div className="img-container-logo">
+              <img src="../../public/logo jimbo.jpeg" alt="logo" />
+            </div>
+            <h1 className="logo">Estación Sur</h1>
+          </div>
         </Link>
         <button
           className="open-menu"
